@@ -1,0 +1,36 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragment/common :: head('게시판')">
+</head>
+<body>
+<div class="container">
+    <div th:insert="~{fragment/common :: Menu(menu)}"></div>
+    <div class="container">
+        <h2>게시판</h2>
+        <form action="#" method="post" th:action="@{/board/form}" th:object="${board}">
+            <input th:field="*{id}" type="hidden">
+            <div class="mb-3">
+                <label class="form-label" for="title">제목</label>
+                <input aria-describedby="emailHelp" class="form-control"
+                       id="title" th:classappend="${#fields.hasErrors('title')} ? 'is-invalid'" th:field="*{title}" type="text">
+                <div class="invalid-feedback" id="validationServer03Feedback" th:errors="*{title}" th:if="${#fields.hasErrors('title')}">
+                    제목 에러 메세지
+                </div>
+            </div>
+            <div class="form-floating">
+              <textarea class="form-control" id="content" rows="3" th:classappend="${#fields.hasErrors('content')} ? 'is-invalid'"
+                        th:field="*{content}"></textarea>
+                <div class="invalid-feedback" id="validationServer03Feedback" th:errors="*{content}" th:if="${#fields.hasErrors('content')}">
+                    내용 에러 메세지
+                </div>
+            </div>
+            <div class="text-end">
+                <a class="btn btn-outline-primary" th:href="@{/board/list}" type="button">취소</a>
+                <button class="btn btn-outline-primary" type="submit">확인</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
